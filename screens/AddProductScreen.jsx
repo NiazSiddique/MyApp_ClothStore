@@ -96,6 +96,8 @@ const AddProductScreen = ({ navigation, route }) => {
 
     prdctCtx.addProduct(prdctData);
 
+    console.log(prdctCtx);
+
     await AsyncStorage.setItem('products', JSON.stringify(updatedPrdcts));
 
     // setIsSubmitting(true);

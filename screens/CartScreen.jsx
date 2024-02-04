@@ -19,6 +19,7 @@ const CartScreen = ({ navigation, route }) => {
   const prdctCtx = useContext(PrdctContext);
 
   function addNewOrderHandler() {
+    navigation.navigate('Home');
     navigation.navigate('Orders', {
       // orderId: orderId,
     });

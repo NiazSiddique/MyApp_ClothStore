@@ -103,6 +103,7 @@ const OrderManageScreen = ({ navigation, route }) => {
         productId: product.index,
         prodctName: selectedPrdcts[index],
         quantity: quantityValues[index],
+        // sumPrice: quantityValues[index] * product.price,
       })),
     };
 

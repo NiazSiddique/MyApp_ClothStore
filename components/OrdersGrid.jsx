@@ -15,12 +15,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import SubOrderGrid from './subOrderGrid';
 
+// import { useTotalExpense } from '../store/product-context';
+
 const OrderGrid = ({ id, customerName, products }) => {
   const prdctCtx = useContext(PrdctContext);
 
   const navigation = useNavigation();
 
   const [customerData, setCustomerData] = useState('');
+  const [totalExpense, setTotalExpense] = useState(0);
 
   const findCustomerName = async id => {
     const result = await AsyncStorage.getItem('Customers');
@@ -40,6 +43,7 @@ const OrderGrid = ({ id, customerName, products }) => {
     if (customerName) {
       findCustomerName(customerName);
     }
+    // updateTotalExpense();
   }, []);
 
   function orderPressHandler() {
@@ -76,12 +80,39 @@ const OrderGrid = ({ id, customerName, products }) => {
     ]);
   }
 
+  function updateTotalExpense(cost) {
+    console.log(cost);
+    setTotalExpense(prevTotalExpense => prevTotalExpense + cost);
+  }
+
+  // useEffect(() => {
+  //   let expense = 0;
+  //   products.forEach(product => {
+  //     expense += product.price * product.quantity;
+  //   });
+  //   setTotalExpense(expense);
+  // }, [products]);
+
+  // const updateTotalExpense = () => {
+  //   let expense = 0;
+  //   products.forEach(product => {
+  //     expense += product.price * product.quantity;
+  //   });
+  //   setTotalExpense(expense);
+  // };
+
+  // useEffect(() => {
+  //   updateTotalExpense();
+  // }, []);
+
   function renderItemProduct(prdct) {
     return (
       <SubOrderGrid
         productId={prdct.item.id}
         prodctName={prdct.item.prodctName}
         quantity={prdct.item.quantity}
+        // sumPrice={prdct.item.sumPrice}
+        updateTotalExpense={updateTotalExpense}
       />
     );
   }
@@ -106,6 +137,11 @@ const OrderGrid = ({ id, customerName, products }) => {
           />
         </View>
       </Pressable>
+      <View style={styles.expenseBox}>
+        <Text style={styles.expenseText}>
+          Total Expense : {totalExpense} tk
+        </Text>
+      </View>
       <View style={styles.deleteTextcontainer}>
         <Text style={styles.deleteText}>long press for Delete order</Text>
       </View>
@@ -138,6 +174,14 @@ const styles = StyleSheet.create({
     color: '#85aee3',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  expenseBox: {
+    backgroundColor: '#fff',
+    marginBottom: 6,
+  },
+  expenseText: {
+    color: '#e6580c',
+    textAlign: 'center',
   },
   deleteTextcontainer: {
     backgroundColor: '#0369a1',

@@ -1,7 +1,32 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useContext, useReducer } from 'react';
 
 // import { DPRODUCTS } from '../data/dum-data';
 // import { CUSTOMERS } from '../data/dummy-data';
+
+// const TotalExpenseContext = createContext();
+
+// export const TotalExpenseProvider = ({ children }) => {
+//   const [totalExpense, dispatch] = useReducer((prev, action) => {
+//     switch (action.type) {
+//       case 'UPDATE_TOTAL_EXPENSE':
+//         return prev + action.payload;
+//       default:
+//         return prev;
+//     }
+//   }, 0);
+
+//   const updateTotalExpense = amount => {
+//     dispatch({ type: 'UPDATE_TOTAL_EXPENSE', payload: amount });
+//   };
+
+//   return (
+//     <TotalExpenseContext.Provider value={{ totalExpense, updateTotalExpense }}>
+//       {children}
+//     </TotalExpenseContext.Provider>
+//   );
+// };
+
+// export const useTotalExpense = () => useContext(TotalExpenseContext);
 
 export const PrdctContext = createContext({
   products: [],
@@ -14,7 +39,7 @@ export const PrdctContext = createContext({
   addOrders: ({
     id,
     customerName,
-    products: [{ productId, prodctName, quantity }],
+    products: [{ productId, prodctName, quantity, sumPrice }],
   }) => {},
 });
 
@@ -112,3 +137,7 @@ function PrdctContextProvider({ children }) {
 }
 
 export default PrdctContextProvider;
+
+{
+  /* <TotalExpenseProvider>{children}</TotalExpenseProvider> */
+}

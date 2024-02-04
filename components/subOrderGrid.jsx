@@ -1,8 +1,11 @@
 import { Image, StyleSheet, Text, View } from 'react-native';
-import React, { useLayoutEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useContext, useEffect, useLayoutEffect, useState } from 'react';
 
-function SubOrderGrid({ productId, prodctName, quantity }) {
+import AsyncStorage from '@react-native-async-storage/async-storage';
+// import { useTotalExpense } from '../store/product-context';
+// import { PrdctContext } from '../store/product-context';
+
+function SubOrderGrid({ productId, prodctName, quantity, updateTotalExpense }) {
   const [productDatas, setProductDatas] = useState('');
   const [productImageData, setProductImageData] = useState('#');
   const [productCostData, setProductCostData] = useState('');
@@ -59,7 +62,22 @@ function SubOrderGrid({ productId, prodctName, quantity }) {
     findProductImage(prodctName);
     findProductRate(prodctName);
     // findProductQuantity(prodctName);
+    // const totalCost = productCostData * quantity;
+    updateTotalExpense(totalCost);
   }, []);
+
+  // useEffect(() => {
+  //   const calculateTotalCost = async () => {
+  //     const totalCost = productCostData * quantity;
+  //     if (!isNaN(totalCost)) {
+  //       updateTotalExpense(totalCost);
+  //     }
+  //   };
+
+  //   calculateTotalCost();
+  // }, [productCostData, quantity, updateTotalExpense]);
+
+  const totalCost = productCostData * quantity;
 
   return (
     <View style={styles.imageContainer}>
@@ -75,7 +93,7 @@ function SubOrderGrid({ productId, prodctName, quantity }) {
         <Text style={styles.prdctAmountTextA}>Price: {productCostData}</Text>
         <Text style={styles.prdctAmountTextA}>total Cost :</Text>
         <Text style={styles.prdctAmountText}>
-          tk.{productCostData * quantity} ({quantity}pcs)
+          tk.{totalCost} ({quantity}pcs)
         </Text>
       </View>
       <View style={styles.quantityBox}>
