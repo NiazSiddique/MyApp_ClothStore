@@ -81,7 +81,6 @@ const OrderGrid = ({ id, customerName, products }) => {
   }
 
   function updateTotalExpense(cost) {
-    console.log(cost);
     setTotalExpense(prevTotalExpense => prevTotalExpense + cost);
   }
 
