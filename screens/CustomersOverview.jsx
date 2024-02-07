@@ -67,9 +67,9 @@ const CustomersOverview = ({ navigation, route }) => {
           <Text style={styles.textTouchable}>Add New Customer</Text>
         </View>
       </TouchableOpacity>
-      <View>
+      {/* <View>
         <Text>sample text</Text>
-      </View>
+      </View> */}
       {content}
     </View>
   );
