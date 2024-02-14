@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // import { useTotalExpense } from '../store/product-context';
 // import { PrdctContext } from '../store/product-context';
 
-function SubOrderGrid({ productId, prodctName, quantity, updateTotalExpense }) {
+function SubOrderGrid({ productId, prodctName, quantity }) {
   const [productDatas, setProductDatas] = useState('');
   const [productImageData, setProductImageData] = useState('#');
   const [productCostData, setProductCostData] = useState('');
@@ -63,7 +63,7 @@ function SubOrderGrid({ productId, prodctName, quantity, updateTotalExpense }) {
     findProductRate(prodctName);
     // findProductQuantity(prodctName);
     // const totalCost = productCostData * quantity;
-    updateTotalExpense(totalCost);
+    // updateTotalExpense(totalCost);
   }, []);
 
   // useEffect(() => {

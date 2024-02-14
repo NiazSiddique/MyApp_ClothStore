@@ -43,7 +43,7 @@ const OrderGrid = ({ id, customerName, products }) => {
     if (customerName) {
       findCustomerName(customerName);
     }
-    // updateTotalExpense();
+    updateTotalExpense();
   }, []);
 
   function orderPressHandler() {
@@ -80,29 +80,36 @@ const OrderGrid = ({ id, customerName, products }) => {
     ]);
   }
 
-  function updateTotalExpense(cost) {
-    setTotalExpense(prevTotalExpense => prevTotalExpense + cost);
+  async function updateTotalExpense() {
+    // console.log(products);
+    // setTotalExpense(prevTotalExpense => prevTotalExpense + cost);
+
+    // const updateTotalExpense = () => {
+    const result = await AsyncStorage.getItem('products');
+    const allProducts = JSON.parse(result);
+
+    // console.log(allProducts);
+
+    let total = 0;
+
+    products.forEach(product => {
+      // console.log(product);
+      allProducts.forEach(each => {
+        if (product.prodctName === each.id) {
+          total += parseFloat(each.price) * product.quantity;
+        }
+      });
+    });
+
+    setTotalExpense(total);
+
+    // let expense = 0;
+    //   products.forEach(product => {
+    //   expense += product.price * product.quantity;
+    // });
+    // setTotalExpense(expense);
+    // };
   }
-
-  // useEffect(() => {
-  //   let expense = 0;
-  //   products.forEach(product => {
-  //     expense += product.price * product.quantity;
-  //   });
-  //   setTotalExpense(expense);
-  // }, [products]);
-
-  // const updateTotalExpense = () => {
-  //   let expense = 0;
-  //   products.forEach(product => {
-  //     expense += product.price * product.quantity;
-  //   });
-  //   setTotalExpense(expense);
-  // };
-
-  // useEffect(() => {
-  //   updateTotalExpense();
-  // }, []);
 
   function renderItemProduct(prdct) {
     return (
@@ -111,7 +118,7 @@ const OrderGrid = ({ id, customerName, products }) => {
         prodctName={prdct.item.prodctName}
         quantity={prdct.item.quantity}
         // sumPrice={prdct.item.sumPrice}
-        updateTotalExpense={updateTotalExpense}
+        // updateTotalExpense={updateTotalExpense}
       />
     );
   }
@@ -181,6 +188,7 @@ const styles = StyleSheet.create({
   expenseText: {
     color: '#e6580c',
     textAlign: 'center',
+    fontSize: 24,
   },
   deleteTextcontainer: {
     backgroundColor: '#0369a1',
