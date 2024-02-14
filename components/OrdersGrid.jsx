@@ -92,14 +92,16 @@ const OrderGrid = ({ id, customerName, products }) => {
 
     let total = 0;
 
-    products.forEach(product => {
-      // console.log(product);
-      allProducts.forEach(each => {
-        if (product.prodctName === each.id) {
-          total += parseFloat(each.price) * product.quantity;
-        }
+    if (allProducts) {
+      products.forEach(product => {
+        // console.log(product);
+        allProducts.forEach(each => {
+          if (product.prodctName === each.id) {
+            total += parseFloat(each.price) * product.quantity;
+          }
+        });
       });
-    });
+    }
 
     setTotalExpense(total);
 
